@@ -34,9 +34,9 @@ fi
 # ./build-64-sse2 LuxCore$SDK_BUILD
 mkdir ../BlendLuxCore
 cp -R * ../BlendLuxCore/
+rm -rf ../BlendLuxCore/scripts
 cd ..
-ls BlendLuxCore/.github
-zip -r BlendLuxCore-$VERSION_STRING-linux64.zip BlendLuxCore -x .git .github *.gitignore* .travis.yml *.yml ./BlendLuxCore/scripts/* ./BlendLuxCore/auto_load.py
+zip -r BlendLuxCore-$VERSION_STRING-linux64.zip BlendLuxCore -x .git .github *.gitignore* .travis.yml *.yml ./BlendLuxCore/auto_load.py
 cp BlendLuxCore-$VERSION_STRING-linux64.zip $BUILD_ARTIFACTSTAGINGDIRECTORY/BlendLuxCore-$VERSION_STRING-linux64.zip
 # mv target-64-sse2/LuxCore$SDK_BUILD.tar.bz2 $BUILD_ARTIFACTSTAGINGDIRECTORY/luxcorerender-$VERSION_STRING-linux64$SDK_BUILD.tar.bz2
 
