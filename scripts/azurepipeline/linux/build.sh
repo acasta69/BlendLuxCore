@@ -32,6 +32,7 @@ fi
 # doesn't work with symbolic links)
 # git clone .. LuxCore$SDK_BUILD
 # ./build-64-sse2 LuxCore$SDK_BUILD
+mkdir ../BlendLuxCore
 cp -R * ../BlendLuxCore/
 cd ..
 zip -r BlendLuxCore-$VERSION_STRING-linux64.zip BlendLuxCore -x .git .github .gitignore .travis.yml *.yml scripts auto_load.py
