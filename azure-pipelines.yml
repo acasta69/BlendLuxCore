@@ -33,7 +33,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: LuxCore
+      artifactName: BlendLuxCore
     displayName: 'Upload github_release_title'
     condition: eq(variables['System.PullRequest.IsFork'], 'False')
     
