@@ -21,8 +21,11 @@ if [[ "$BLENDER280" == "TRUE" ]] ; then
     git merge --no-commit origin/$BUILD_SOURCEBRANCHNAME
 fi
 
-# Set up paths
-# cd LinuxCompile
+# Get Intel OIDN
+cd ,,
+wget https://github.com/OpenImageDenoise/oidn/releases/download/v1.0.0/oidn-1.0.0.x86_64.linux.tar.gz
+tar -xvzf oidn-1.0.0.x86_64.linux.tar.gz
+cd $SYSTEM_DEFAULTWORKINGDIRECTORY
 
 #==========================================================================
 # Packing OpenCL-less version"
@@ -40,9 +43,10 @@ wget https://github.com/LuxCoreRender/LuxCore/releases/download/latest/luxcorere
 tar -xvjf luxcorerender-$VERSION_STRING-linux64.tar.bz2
 cp ./LuxCore/lib*.* ./BlendLuxCore/bin
 cp ./LuxCore/pyluxcore.so ./BlendLuxCore/bin
+cp ./LuxCore/pyluxcoretools.zip ./BlendLuxCore/bin
+cp ./oidn-1.0.0.x86_64.linux/bin/denoise ./BlendLuxCore/bin
 zip -r BlendLuxCore-$VERSION_STRING-linux64.zip BlendLuxCore -x .git .github *.gitignore* .travis.yml *.yml ./BlendLuxCore/auto_load.py
 cp BlendLuxCore-$VERSION_STRING-linux64.zip $BUILD_ARTIFACTSTAGINGDIRECTORY/BlendLuxCore-$VERSION_STRING-linux64.zip
-# mv target-64-sse2/LuxCore$SDK_BUILD.tar.bz2 $BUILD_ARTIFACTSTAGINGDIRECTORY/luxcorerender-$VERSION_STRING-linux64$SDK_BUILD.tar.bz2
 
 #==========================================================================
 # Packing OpenCL version"
