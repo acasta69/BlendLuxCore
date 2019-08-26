@@ -38,7 +38,7 @@ jobs:
     condition: eq(variables['System.PullRequest.IsFork'], 'False')
     
     
-- job: LuxCoreRenderLinux
+- job: BlendLuxCoreLinux
   dependsOn: DetectBuildType
   condition: succeeded()
   timeoutInMinutes: 0
