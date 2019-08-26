@@ -3,7 +3,7 @@
 # Install deps
 sudo apt-get -qq update
 #sudo apt-get install -y wget libtool git cmake3 g++ flex bison libbz2-dev libopenimageio-dev libtiff5-dev libpng12-dev libgtk-3-dev libopenexr-dev libgl1-mesa-dev python3-dev python3-pip python3-numpy ocl-icd-opencl-dev
-sudo apt-get install -y git p7zip-full
+sudo apt-get install -y git zip
 
 # Clone LinuxCompile
 #git clone https://github.com/LuxCoreRender/LinuxCompile.git
@@ -32,8 +32,9 @@ fi
 # doesn't work with symbolic links)
 # git clone .. LuxCore$SDK_BUILD
 # ./build-64-sse2 LuxCore$SDK_BUILD
+cp -R * ../BlendLuxCore/
 cd ..
-7z a -tzip BlendLuxCore-$VERSION_STRING-linux64.zip $SYSTEM_DEFAULTWORKINGDIRECTORY -x!.git -x!.github -x!.gitignore -x!.travis.yml -x!*.yml -x!scripts -x!auto_load.py
+zip -r BlendLuxCore-$VERSION_STRING-linux64.zip BlendLuxCore -x .git .github .gitignore .travis.yml *.yml scripts auto_load.py
 cp BlendLuxCore-$VERSION_STRING-linux64.zip $BUILD_ARTIFACTSTAGINGDIRECTORY/BlendLuxCore-$VERSION_STRING-linux64.zip
 # mv target-64-sse2/LuxCore$SDK_BUILD.tar.bz2 $BUILD_ARTIFACTSTAGINGDIRECTORY/luxcorerender-$VERSION_STRING-linux64$SDK_BUILD.tar.bz2
 
