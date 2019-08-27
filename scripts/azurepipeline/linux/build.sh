@@ -9,7 +9,7 @@ sudo apt-get install -y git zip wget bzip2
 cd ..
 wget https://github.com/OpenImageDenoise/oidn/releases/download/v1.0.0/oidn-1.0.0.x86_64.linux.tar.gz
 tar -xvzf oidn-1.0.0.x86_64.linux.tar.gz
-cd ./$SYSTEM_DEFAULTWORKINGDIRECTORY
+cd $SYSTEM_DEFAULTWORKINGDIRECTORY
 
 if [[ "$BLENDER280" == "TRUE" ]] ; then
     VERSION_STRING=$VERSION_STRING-blender2.80
