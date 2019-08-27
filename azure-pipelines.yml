@@ -50,7 +50,17 @@ jobs:
   container: LinuxContainer
 
   steps:
-  - template: ./scripts/azurepipeline/linux/linux_jobs.yml
+  - script: ./scripts/azurepipeline/linux/build.sh 
+    displayName: Packing add-on
+  # - script: ./scripts/azurepipeline/linux/test.sh
+    # displayName: Testing LuxCore
+    # condition: ${{ eq(parameters.build, 'standard') }}
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: BlendLuxCore
+    displayName: 'Upload BlendLuxCore-<version>-linux64.zip'
+    condition: eq(variables['System.PullRequest.IsFork'], 'False')
 
 
 # - job: LuxCoreRenderLinux_Blender280
@@ -85,8 +95,8 @@ jobs:
       # versionSpec: '3.5'
       # addToPath: true
       # architecture: 'x64'
-  # - script: ./scripts/azurepipeline/windows/deps-setup.cmd
-    # displayName: Getting required deps
+  # # - script: ./scripts/azurepipeline/windows/deps-setup.cmd
+    # # displayName: Getting required deps
   # - template: ./scripts/azurepipeline/windows/windows_jobs.yml
     # parameters:
       # build_script: './scripts/azurepipeline/windows/build.cmd /cmake-only /no-ocl'
