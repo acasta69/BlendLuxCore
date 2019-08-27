@@ -22,7 +22,7 @@ if [[ "$BLENDER280" == "TRUE" ]] ; then
 fi
 
 # Get Intel OIDN
-cd ,,
+cd ..
 wget https://github.com/OpenImageDenoise/oidn/releases/download/v1.0.0/oidn-1.0.0.x86_64.linux.tar.gz
 tar -xvzf oidn-1.0.0.x86_64.linux.tar.gz
 cd $SYSTEM_DEFAULTWORKINGDIRECTORY
