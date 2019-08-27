@@ -42,7 +42,7 @@ tar -xvjf luxcorerender-$VERSION_STRING-linux64.tar.bz2
 # cp ./LuxCore/lib*.* ./BlendLuxCore/bin
 # cp ./LuxCore/pyluxcore.so ./BlendLuxCore/bin
 # cp ./LuxCore/pyluxcoretools.zip ./BlendLuxCore/bin
-python3 ./BlendLuxCore/bin/get_binaries.py ./LuxCore
+python3 ./BlendLuxCore/bin/get_binaries.py --overwrite ./LuxCore
 cp ./oidn-1.0.0.x86_64.linux/bin/denoise ./BlendLuxCore/bin
 zip -r BlendLuxCore-$VERSION_STRING-linux64.zip BlendLuxCore -x .git .github *.gitignore* .travis.yml *.yml ./BlendLuxCore/auto_load.py
 cp BlendLuxCore-$VERSION_STRING-linux64.zip $BUILD_ARTIFACTSTAGINGDIRECTORY/BlendLuxCore-$VERSION_STRING-linux64.zip
@@ -56,7 +56,7 @@ tar -xvjf luxcorerender-$VERSION_STRING-linux64-opencl.tar.bz2
 # cp ./LuxCore/lib*.* ./BlendLuxCore/bin
 # cp ./LuxCore/pyluxcore.so ./BlendLuxCore/bin
 # cp ./LuxCore/pyluxcoretools.zip ./BlendLuxCore/bin
-python3 ./BlendLuxCore/bin/get_binaries.py ./LuxCore-opencl
+python3 ./BlendLuxCore/bin/get_binaries.py --overwrite ./LuxCore-opencl
 cp ./oidn-1.0.0.x86_64.linux/bin/denoise ./BlendLuxCore/bin
 zip -r BlendLuxCore-$VERSION_STRING-linux64-opencl.zip BlendLuxCore -x .git .github *.gitignore* .travis.yml *.yml ./BlendLuxCore/auto_load.py
 cp BlendLuxCore-$VERSION_STRING-linux64-opencl.zip $BUILD_ARTIFACTSTAGINGDIRECTORY/BlendLuxCore-$VERSION_STRING-linux64-opencl.zip
