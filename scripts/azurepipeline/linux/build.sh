@@ -27,36 +27,37 @@ wget https://github.com/OpenImageDenoise/oidn/releases/download/v1.0.0/oidn-1.0.
 tar -xvzf oidn-1.0.0.x86_64.linux.tar.gz
 cd $SYSTEM_DEFAULTWORKINGDIRECTORY
 
-#==========================================================================
-# Packing OpenCL-less version"
-#==========================================================================
-
-# Clone LuxCore (this is a bit a waste but LinuxCompile procedure
-# doesn't work with symbolic links)
-# git clone .. LuxCore$SDK_BUILD
-# ./build-64-sse2 LuxCore$SDK_BUILD
+# Set up add-on directory for packing
 mkdir ../BlendLuxCore
 cp -R * ../BlendLuxCore/
 rm -rf ../BlendLuxCore/scripts
 cd ..
+
+#==========================================================================
+# Packing OpenCL-less version
+#==========================================================================
+
 wget https://github.com/LuxCoreRender/LuxCore/releases/download/latest/luxcorerender-$VERSION_STRING-linux64.tar.bz2
 tar -xvjf luxcorerender-$VERSION_STRING-linux64.tar.bz2
-cp ./LuxCore/lib*.* ./BlendLuxCore/bin
-cp ./LuxCore/pyluxcore.so ./BlendLuxCore/bin
-cp ./LuxCore/pyluxcoretools.zip ./BlendLuxCore/bin
+# cp ./LuxCore/lib*.* ./BlendLuxCore/bin
+# cp ./LuxCore/pyluxcore.so ./BlendLuxCore/bin
+# cp ./LuxCore/pyluxcoretools.zip ./BlendLuxCore/bin
+python3 ./BlendLuxCore/bin/get_binaries.py ./LuxCore
 cp ./oidn-1.0.0.x86_64.linux/bin/denoise ./BlendLuxCore/bin
 zip -r BlendLuxCore-$VERSION_STRING-linux64.zip BlendLuxCore -x .git .github *.gitignore* .travis.yml *.yml ./BlendLuxCore/auto_load.py
 cp BlendLuxCore-$VERSION_STRING-linux64.zip $BUILD_ARTIFACTSTAGINGDIRECTORY/BlendLuxCore-$VERSION_STRING-linux64.zip
 
 #==========================================================================
-# Packing OpenCL version"
+# Packing OpenCL version
 #==========================================================================
 
-# Clone LuxCore (this is a bit a waste but LinuxCompile procedure
-# doesn't work with symbolic links)
-# git clone .. LuxCore-opencl$SDK_BUILD
-# ./build-64-sse2 LuxCore-opencl$SDK_BUILD 5
-# cp target-64-sse2/LuxCore-opencl$SDK_BUILD.tar.bz2 target-64-sse2/luxcorerender-$VERSION_STRING-linux64-opencl$SDK_BUILD.tar.bz2
-# mv target-64-sse2/LuxCore-opencl$SDK_BUILD.tar.bz2 $BUILD_ARTIFACTSTAGINGDIRECTORY/luxcorerender-$VERSION_STRING-linux64-opencl$SDK_BUILD.tar.bz2
+wget https://github.com/LuxCoreRender/LuxCore/releases/download/latest/luxcorerender-$VERSION_STRING-linux64-opencl.tar.bz2
+tar -xvjf luxcorerender-$VERSION_STRING-linux64-opencl.tar.bz2
+# cp ./LuxCore/lib*.* ./BlendLuxCore/bin
+# cp ./LuxCore/pyluxcore.so ./BlendLuxCore/bin
+# cp ./LuxCore/pyluxcoretools.zip ./BlendLuxCore/bin
+python3 ./BlendLuxCore/bin/get_binaries.py ./LuxCore-opencl
+cp ./oidn-1.0.0.x86_64.linux/bin/denoise ./BlendLuxCore/bin
+zip -r BlendLuxCore-$VERSION_STRING-linux64-opencl.zip BlendLuxCore -x .git .github *.gitignore* .travis.yml *.yml ./BlendLuxCore/auto_load.py
+cp BlendLuxCore-$VERSION_STRING-linux64-opencl.zip $BUILD_ARTIFACTSTAGINGDIRECTORY/BlendLuxCore-$VERSION_STRING-linux64-opencl.zip
 
-# cd ..

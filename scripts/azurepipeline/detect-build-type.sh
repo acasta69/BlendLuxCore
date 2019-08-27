@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Called by the "LuxCoreRender.LuxCore" build pipeline
+# Called by the "LuxCoreRender.BlendLuxCore" build pipeline
 # Detect release type (daily, alpha, beta or final) and set version string
-# One, and only one, tag in the form "luxcorerender_v*" is needed, 
+# One, and only one, tag in the form "blendluxcore_v*" is needed, 
 # otherwise the official release build aborts.
 
 echo "Detecting build type..."
@@ -10,7 +10,7 @@ echo "Commit ID: $BUILD_SOURCEVERSION"
 TAGS=$(git tag --points-at $BUILD_SOURCEVERSION)
 for tag in $TAGS
 do
-    if [[ $tag != "latest" ]] && [[ $tag == "luxcorerender_v"* ]] ; then
+    if [[ $tag != "latest" ]] && [[ $tag == "blendluxcore_v"* ]] ; then
         if [[ -z "$VERSION_STRING" ]] ; then
             VERSION_STRING=$(echo $tag | cut -d'_' -f 2)
         else
