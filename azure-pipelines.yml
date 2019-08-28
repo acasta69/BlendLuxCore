@@ -50,8 +50,12 @@ jobs:
   container: LinuxContainer
 
   steps:
+  - script: ./scripts/azurepipeline/linux/deps-setup.sh
+    displayName: Setting up deps
   - script: ./scripts/azurepipeline/linux/build.sh 
-    displayName: Packing add-on
+    displayName: Packing BlendLuxCore
+  - script: ./scripts/azurepipeline/linux/build.sh blender280
+    displayName: Packing BlendLuxCore_2.80
   # - script: ./scripts/azurepipeline/linux/test.sh
     # displayName: Testing LuxCore
     # condition: ${{ eq(parameters.build, 'standard') }}
