@@ -4,7 +4,7 @@ if [[ "$1" == "blender280" ]] ; then
     LUX_VERSION=$VERSION_STRING-blender2.80
     BLC_VERSION=_280
     git checkout master
-else ;
+else
     git checkout 2_79_maintenance
 fi
 
