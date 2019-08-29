@@ -5,6 +5,7 @@ if [[ "$2" == "blender280" ]] ; then
     BLC_VERSION=_280
     #git checkout master
 else
+    LUX_VERSION=$VERSION_STRING
     git checkout 2_79_maintenance
 fi
 
@@ -13,7 +14,7 @@ if [[ "$1" == "linux64" ]] ; then
     UNZIP_CMD='tar -xvjf'
     LUXCORE_DIR=LuxCore
 elif [[ "$1" == "win64" ]] ; then
-    FILE_EXT=.zip
+    FILE_EXT=zip
     UNZIP_CMD=unzip
     LUXCORE_DIR=luxcorerender-$LUX_VERSION-$1
 fi
