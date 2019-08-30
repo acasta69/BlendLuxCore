@@ -37,7 +37,9 @@ jobs:
     displayName: 'Upload github_release_title'
     condition: eq(variables['System.PullRequest.IsFork'], 'False')
     
-    
+#==========================================================================
+# Linux version
+#==========================================================================
 - job: BlendLuxCoreLinux
   dependsOn: DetectBuildType
   condition: succeeded()
@@ -50,18 +52,14 @@ jobs:
   container: LinuxContainer
 
   steps:
-  - script: ./scripts/azurepipeline/deps-setup.sh
+  - script: ./scripts/azurepipeline/linux/deps-setup.sh
     displayName: Setting up deps
-  - script: ../scripts/azurepipeline/pack.sh linux64
+  - script: ../scripts/azurepipeline/linux/pack.sh
     displayName: Packing BlendLuxCore for Linux
-  - script: ../scripts/azurepipeline/pack.sh win64
-    displayName: Packing BlendLuxCore for Windows
-  - script: ../scripts/azurepipeline/pack.sh linux64 blender280
+  - script: ../scripts/azurepipeline/linux/pack.sh blender280
     displayName: Packing BlendLuxCore_2.80 for Linux
-  - script: ../scripts/azurepipeline/pack.sh win64 blender280
-    displayName: Packing BlendLuxCore_2.80 for Windows
-  # - script: ./scripts/azurepipeline/test.sh
-    # displayName: Testing LuxCore
+  # - script: ../scripts/azurepipeline/linux/test.sh
+    # displayName: Testing BlendLuxCore
     # condition: ${{ eq(parameters.build, 'standard') }}
   - task: PublishBuildArtifacts@1
     inputs:
@@ -71,115 +69,39 @@ jobs:
     condition: eq(variables['System.PullRequest.IsFork'], 'False')
 
 
-# - job: LuxCoreRenderLinux_Blender280
-  # # Variable 'blender280' triggers use of blender2.80 branch when setting up deps
-  # dependsOn: DetectBuildType
-  # condition: succeeded()
-  # timeoutInMinutes: 0
-  # pool:
-    # vmImage: 'ubuntu-16.04'
-  # variables:
-    # version_string: $[ dependencies.DetectBuildType.outputs['setvarStep.version_string'] ]
-    # blender280: 'TRUE'
+#==========================================================================
+# Windows version
+#==========================================================================
+- job: BlendLuxCoreWindows
+  dependsOn: DetectBuildType
+  condition: succeeded()
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'vs2017-win2016'
+  variables:
+    version_string: $[ dependencies.DetectBuildType.outputs['setvarStep.version_string'] ]
 
-  # container: LinuxContainer
-
-  # steps:
-  # - template: ./scripts/azurepipeline/linux/linux_jobs.yml
-
-
-# - job: LuxCoreRenderWindows
-  # dependsOn: DetectBuildType
-  # condition: succeeded()
-  # timeoutInMinutes: 0
-  # pool:
-    # vmImage: 'vs2017-win2016'
-  # variables:
-    # version_string: $[ dependencies.DetectBuildType.outputs['setvarStep.version_string'] ]
-
-  # steps:
-  # - task: UsePythonVersion@0
-    # inputs:
-      # versionSpec: '3.5'
-      # addToPath: true
-      # architecture: 'x64'
-  # # - script: ./scripts/azurepipeline/windows/deps-setup.cmd
-    # # displayName: Getting required deps
-  # - template: ./scripts/azurepipeline/windows/windows_jobs.yml
-    # parameters:
-      # build_script: './scripts/azurepipeline/windows/build.cmd /cmake-only /no-ocl'
-      # post_script: './scripts/azurepipeline/windows/post-build.cmd /no-ocl'
-      # ocl_text: 'OpenCL disabled'
-  # - template: ./scripts/azurepipeline/windows/windows_jobs.yml
-    # parameters:
-      # build_script: './scripts/azurepipeline/windows/build.cmd /cmake-only'
-      # post_script: './scripts/azurepipeline/windows/post-build.cmd'
-      # ocl_text: 'OpenCL enabled'
-  # - script: './scripts/azurepipeline/windows/test.cmd'
-    # displayName: Testing LuxCore
-  # - task: PublishBuildArtifacts@1
-    # inputs:
-      # pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      # artifactName: LuxCore
-    # displayName: 'Upload luxcorerender-<version>-win64.zip'
-    # condition: eq(variables['System.PullRequest.IsFork'], 'False')
+  steps:
+  - script: ./scripts/azurepipeline/windows/deps-setup.cmd
+    displayName: Setting up deps
+  - script: ../scripts/azurepipeline/windows/pack.cmd
+    displayName: Packing BlendLuxCore for Windows
+  - script: ../scripts/azurepipeline/windows/pack.cmd blender280
+    displayName: Packing BlendLuxCore_2.80 for Windows
+  # - script: '../scripts/azurepipeline/windows/test.cmd'
+    # displayName: Testing BlendLuxCore
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: LuxCore
+    displayName: 'Upload BlendLuxCore-<version>-win64.zip'
+    condition: eq(variables['System.PullRequest.IsFork'], 'False')
 
 
-# - job: LuxCoreRenderWindows_Blender280
-  # # This is based on Python 3.7
-  # # Variable 'blender280' triggers use of blender2.80 branch when setting up deps
-  # dependsOn: DetectBuildType
-  # condition: succeeded()
-  # timeoutInMinutes: 0
-  # pool:
-    # vmImage: 'vs2017-win2016'
-  # variables:
-    # version_string: $[ dependencies.DetectBuildType.outputs['setvarStep.version_string'] ]
-    # blender280: 'TRUE'
-
-  # steps:
-  # - task: UsePythonVersion@0
-    # inputs:
-      # versionSpec: '3.7'
-      # addToPath: true
-      # architecture: 'x64'
-  # - script: ./scripts/azurepipeline/windows/deps-setup.cmd
-    # displayName: Getting required deps
-  # - template: ./scripts/azurepipeline/windows/windows_jobs.yml
-    # parameters:
-      # build_script: './scripts/azurepipeline/windows/build.cmd /cmake-only /no-ocl /python37'
-      # post_script: './scripts/azurepipeline/windows/post-build.cmd /no-ocl'
-      # ocl_text: 'OpenCL disabled'
-  # - template: ./scripts/azurepipeline/windows/windows_jobs.yml
-    # parameters:
-      # build_script: './scripts/azurepipeline/windows/build.cmd /cmake-only /python37'
-      # post_script: './scripts/azurepipeline/windows/post-build.cmd'
-      # ocl_text: 'OpenCL enabled'
-  # - script: './scripts/azurepipeline/windows/test.cmd'
-    # displayName: Testing LuxCore
-  # - task: PublishBuildArtifacts@1
-    # inputs:
-      # pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      # artifactName: LuxCore
-    # displayName: 'Upload luxcorerender-<version>-win64.zip'
-    # condition: eq(variables['System.PullRequest.IsFork'], 'False')
-
-
-#- job: LuxCoreRenderMacOS
-#  timeoutInMinutes: 0
-#  pool:
-#    vmImage: 'macOS-10.13'
-#
-#  steps:
-#  - script: ./scripts/azurepipeline/macos/install.sh
-#    displayName: Install Build Tools
-#  - script: ./scripts/azurepipeline/macos/build.sh
-#    displayName: Building LuxCore
-#  - script: ./scripts/azurepipeline/macos/test.sh
-#    displayName: Testing LuxCore
-
-
-# Next job deletes "latest" tag from LuxCore repo, so that it is then
+#==========================================================================
+# Preparing for GitHub release
+#==========================================================================
+# This job deletes "latest" tag from BlendLuxCore repo, so that it is then
 # recreated at the current commit by the following release pipeline
 # Runs only if:
 # - this is a daily build
