@@ -27,7 +27,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
     
   steps:
-  - script: ./scripts/azurepipeline/detect-build-type.sh
+  - script: ./scripts/azurepipeline/detect-release-type.sh
     displayName: Detecting release type (daily, alpha, beta or final)
     name: setvarStep
   - task: PublishBuildArtifacts@1
