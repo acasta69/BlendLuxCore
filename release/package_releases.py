@@ -37,9 +37,9 @@ OIDN_LINUX = "oidn-linux.tar.gz"
 OIDN_MAC = "oidn-macos.tar.gz"
 
 OIDN_urls = {
-    OIDN_WIN: "https://github.com/OpenImageDenoise/oidn/releases/download/v0.9.0/oidn-0.9.0.x64.vc14.windows.zip",
-    OIDN_LINUX: "https://github.com/OpenImageDenoise/oidn/releases/download/v0.9.0/oidn-0.9.0.x86_64.linux.tar.gz",
-    OIDN_MAC: "https://github.com/OpenImageDenoise/oidn/releases/download/v0.9.0/oidn-0.9.0.x86_64.macos.tar.gz",
+    OIDN_WIN: "https://github.com/OpenImageDenoise/oidn/releases/download/v1.0.0/oidn-1.0.0.x64.vc14.windows.zip",
+    OIDN_LINUX: "https://github.com/OpenImageDenoise/oidn/releases/download/v1.0.0/oidn-1.0.0.x86_64.linux.tar.gz",
+    OIDN_MAC: "https://github.com/OpenImageDenoise/oidn/releases/download/v1.0.0/oidn-1.0.0.x86_64.macos.tar.gz",
 }
 
 
@@ -158,7 +158,10 @@ def main():
     args = parser.parse_args()
 
     # Archives we need.
-    url_prefix = "https://github.com/LuxCoreRender/LuxCore/releases/download/luxcorerender_"
+    if args.version_string == "latest":
+        url_prefix = "https://github.com/LuxCoreRender/LuxCore/releases/download/"
+    else:
+        url_prefix = "https://github.com/LuxCoreRender/LuxCore/releases/download/luxcorerender_"
     prefix = "luxcorerender-"
     suffixes = [
         "-linux64.tar.bz2",
@@ -234,7 +237,7 @@ def main():
         os.path.join(repo_path, ".git"),
     ]
     for path in to_delete:
-        shutil.rmtree(path)
+        shutil.rmtree(path, ignore_errors=True)
 
     print()
     print_divider()
