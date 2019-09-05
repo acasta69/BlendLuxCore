@@ -21,10 +21,10 @@ do
 done
 
 if [[ -z "$VERSION_STRING" ]] ; then
-    echo "No release git tag found, this is a daily build"
-    VERSION_STRING="latest"
+    echo "No release git tag found, this is a daily release"
+    VERSION_STRING=latest
 fi
-echo "Detected build type: $VERSION_STRING"
+echo "Detected release type: $VERSION_STRING"
 
 if [[ $VERSION_STRING == *"alpha"* ]] || \
    [[ $VERSION_STRING == *"beta"* ]] || \
