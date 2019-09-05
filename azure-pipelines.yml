@@ -52,9 +52,9 @@ jobs:
   container: LinuxContainer
 
   steps:
-  # - script: ./scripts/azurepipeline/linux/deps-setup.sh
-    # displayName: Setting up deps
-  - script: ./scripts/azurepipeline/pack.sh
+  - script: ./scripts/azurepipeline/deps-setup.sh
+    displayName: Setting up deps
+  - script: ../scripts/azurepipeline/pack.sh
     displayName: Packing BlendLuxCore for Linux
   # - script: ../scripts/azurepipeline/linux/pack.sh blender280
     # displayName: Packing BlendLuxCore_2.80 for Linux
