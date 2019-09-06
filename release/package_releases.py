@@ -229,9 +229,8 @@ def main():
 
     os.chdir("..")
 
-    # Delete developer stuff that is not needed by users (e.g. tests directory)
+    # Delete developer stuff that is not needed by users
     to_delete = [
-        os.path.join(repo_path, "tests"),
         os.path.join(repo_path, "doc"),
         os.path.join(repo_path, ".github"),
         os.path.join(repo_path, ".git"),
