@@ -56,7 +56,7 @@ jobs:
     displayName: Setting up deps
   # - script: ../scripts/azurepipeline/pack.sh
     # displayName: Packaging BlendLuxCore for Linux
-  - script: ../scripts/azurepipeline/linux/pack.sh blender280
+  - script: ../scripts/azurepipeline/pack.sh blender280
     displayName: Packaging BlendLuxCore_2.80 for Linux
   # - script: ../scripts/azurepipeline/linux/test.sh
     # displayName: Testing BlendLuxCore
