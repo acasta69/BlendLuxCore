@@ -54,10 +54,10 @@ jobs:
   steps:
   - script: ./scripts/azurepipeline/deps-setup.sh
     displayName: Setting up deps
-  - script: ../scripts/azurepipeline/pack.sh
-    displayName: Packing BlendLuxCore for Linux
-  # - script: ../scripts/azurepipeline/linux/pack.sh blender280
-    # displayName: Packing BlendLuxCore_2.80 for Linux
+  # - script: ../scripts/azurepipeline/pack.sh
+    # displayName: Packaging BlendLuxCore for Linux
+  - script: ../scripts/azurepipeline/linux/pack.sh blender280
+    displayName: Packaging BlendLuxCore_2.80 for Linux
   # - script: ../scripts/azurepipeline/linux/test.sh
     # displayName: Testing BlendLuxCore
     # condition: ${{ eq(parameters.build, 'standard') }}

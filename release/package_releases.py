@@ -155,6 +155,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("version_string",
                         help='E.g. "v2.0alpha1" or "v2.0". Used to download the LuxCore zips')
+    parser.add_argument("blender_version",
+                        help='"280" to package for Blender 2.80+, otherwise nothing')
     args = parser.parse_args()
 
     # Archives we need.
@@ -171,6 +173,9 @@ def main():
         "-mac64.tar.gz",
         "-mac64-opencl.tar.gz",
     ]
+    if args.blender_version == "280":
+        for suffix in suffixes:
+            suffix = "-blender2.80"+suffix
 
     # Download LuxCore binaries for all platforms
     print_divider()
