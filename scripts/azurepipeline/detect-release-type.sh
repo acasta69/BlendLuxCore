@@ -7,6 +7,7 @@
 
 echo "Detecting build type..."
 echo "Commit ID: $BUILD_SOURCEVERSION"
+echo "Build reason: $BUILD_REASON"
 TAGS=$(git tag --points-at $BUILD_SOURCEVERSION)
 for tag in $TAGS
 do
