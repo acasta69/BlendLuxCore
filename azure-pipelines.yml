@@ -11,6 +11,16 @@
 # variables:
 # - group: BuildPipelinesGroup
 
+resources:
+  pipelines:
+  - pipeline: luxcore_pipeline
+    source: acasta69.LuxCore
+    project: LuxCore_acasta
+    trigger:
+      branches:
+        include:
+        - new_build_pipeline
+
 trigger:
   branches:
     include:
